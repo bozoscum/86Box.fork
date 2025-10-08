@@ -8778,13 +8778,13 @@ const machine_t machines[] = {
         .gpio_acpi_handler = NULL,
         .cpu               = {
             .package     = CPU_PKG_SOCKET3,
-            .block       = CPU_BLOCK_NONE,
+            .block       = CPU_BLOCK(CPU_Cx5x86),
             .min_bus     = 0,
             .max_bus     = 0,
             .min_voltage = 0,
             .max_voltage = 0,
             .min_multi   = 0,
-            .max_multi   = 0
+            .max_multi   = 2
         },
         .bus_flags = MACHINE_VLB,
         .flags     = MACHINE_APM,
@@ -8799,6 +8799,50 @@ const machine_t machines[] = {
         .kbc_device               = &kbc_at_device,
         .kbc_params               = KBC_VEN_AMI | 0x00004600,
         .kbc_p1                   = 0x000004f0,
+        .gpio                     = 0xffffffff,
+        .gpio_acpi                = 0xffffffff,
+        .device                   = NULL,
+        .kbd_device               = NULL,
+        .fdc_device               = NULL,
+        .sio_device               = NULL,
+        .vid_device               = NULL,
+        .snd_device               = NULL,
+        .net_device               = NULL
+    },
+    /* JETKey 5.0 KBC */
+    {
+        .name              = "[SiS 471] ABIT AB-AH4T",
+        .internal_name     = "win471t",
+        .type              = MACHINE_TYPE_486_S3,
+        .chipset           = MACHINE_CHIPSET_SIS_471,
+        .init              = machine_at_win471t_init,
+        .p1_handler        = machine_generic_p1_handler,
+        .gpio_handler      = NULL,
+        .available_flag    = MACHINE_AVAILABLE,
+        .gpio_acpi_handler = NULL,
+        .cpu               = {
+            .package     = CPU_PKG_SOCKET3,
+            .block       = CPU_BLOCK_NONE,
+            .min_bus     = 0,
+            .max_bus     = 0,
+            .min_voltage = 0,
+            .max_voltage = 0,
+            .min_multi   = 0,
+            .max_multi   = 0
+        },
+        .bus_flags = MACHINE_VLB,
+        .flags     = MACHINE_APM | MACHINE_ACPI,
+        .ram       = {
+            .min  = 1024,
+            .max  = 131072,
+            .step = 1024
+        },
+        .nvrmask                  = 127,
+        .jumpered_ecp_dma         = 0,
+        .default_jumpered_ecp_dma = -1,
+        .kbc_device               = &kbc_at_device,
+        .kbc_params               = KBC_VEN_AMI | KBC_FLAG_IS_CLONE | KBC_FLAG_IS_ASIC | 0x00004800,
+        .kbc_p1                   = 0x00000cf0,
         .gpio                     = 0xffffffff,
         .gpio_acpi                = 0xffffffff,
         .device                   = NULL,
@@ -13378,6 +13422,52 @@ const machine_t machines[] = {
         .sio_device               = NULL,
         .vid_device               = &s3_phoenix_trio64_onboard_pci_device,
         .snd_device               = &sb_vibra16s_onboard_device,
+        .net_device               = NULL
+    },
+    /* According to tests from real hardware: This has AMI MegaKey KBC firmware on the
+       PC87306 Super I/O chip, command 0xA1 returns '5'.
+       Command 0xA0 copyright string: (C)1994 AMI . */
+    {
+        .name              = "[i430FX] Intel Advanced/MA (Monaco)",
+        .internal_name     = "monaco",
+        .type              = MACHINE_TYPE_SOCKET7_3V,
+        .chipset           = MACHINE_CHIPSET_INTEL_430FX,
+        .init              = machine_at_monaco_init,
+        .p1_handler        = machine_generic_p1_handler,
+        .gpio_handler      = NULL,
+        .available_flag    = MACHINE_AVAILABLE,
+        .gpio_acpi_handler = NULL,
+        .cpu               = {
+            .package     = CPU_PKG_SOCKET5_7,
+            .block       = CPU_BLOCK(CPU_K5, CPU_5K86, CPU_Cx6x86),
+            .min_bus     = 50000000,
+            .max_bus     = 66666667,
+            .min_voltage = 3380,
+            .max_voltage = 3520,
+            .min_multi   = 1.5,
+            .max_multi   = 3.0
+        },
+        .bus_flags = MACHINE_PS2_PCI,
+        .flags     = MACHINE_IDE_DUAL | MACHINE_VIDEO | MACHINE_APM,  /* Machine has onboard sound: Crystal CS4232-KQ */
+        .ram       = {
+            .min  = 8192,
+            .max  = 131072,
+            .step = 8192
+        },
+        .nvrmask                  = 255,
+        .jumpered_ecp_dma         = MACHINE_DMA_3,
+        .default_jumpered_ecp_dma = 3,
+        .kbc_device               = NULL,
+        .kbc_params               = 0x00000000,
+        .kbc_p1                   = 0x000044f0,
+        .gpio                     = 0xffffffff,
+        .gpio_acpi                = 0xffffffff,
+        .device                   = NULL,
+        .kbd_device               = NULL,
+        .fdc_device               = NULL,
+        .sio_device               = NULL,
+        .vid_device               = &mach64ct_device_onboard,
+        .snd_device               = NULL,
         .net_device               = NULL
     },
     /* This has an AMIKey-2, which is type 'H'. */

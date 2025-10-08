@@ -760,6 +760,7 @@ extern int             machine_at_acerv10_init(const machine_t *);
 
 /* SiS 471 */
 extern int             machine_at_win471_init(const machine_t *);
+extern int             machine_at_win471t_init(const machine_t *);
 extern int             machine_at_vi15g_init(const machine_t *);
 extern int             machine_at_vli486sv2g_init(const machine_t *);
 extern int             machine_at_dvent4xx_init(const machine_t *);
@@ -960,6 +961,7 @@ extern const device_t  thor_device;
 extern int             machine_at_thor_init(const machine_t *);
 extern uint32_t        machine_at_endeavor_gpio_handler(uint8_t write, uint32_t val);
 extern int             machine_at_endeavor_init(const machine_t *);
+extern int             machine_at_monaco_init(const machine_t *);
 extern int             machine_at_ms5119_init(const machine_t *);
 extern int             machine_at_pb640_init(const machine_t *);
 extern int             machine_at_mb500n_init(const machine_t *);
